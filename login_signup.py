@@ -51,7 +51,7 @@ def signUp(usr,pwd,name,mob):
             ClientId=COGNITO_USER_CLIENT_ID,
             Username=usr,
             Password=pwd,
-            UserAttributes=[{"Name": "name", "Value": name},{"Name":"custom:mobile","Value":mob}],
+            UserAttributes=[{"Name": "name", "Value": name},{"Name":"custom:con_number","Value":mob}],
         )
 
         return {"success": "true"}
