@@ -7,10 +7,9 @@ from awscli.errorhandler import ClientError
 
 table= connect_table.table1
 cog = connect_table.cogclient
-snsmsg = connect_table.snsclient
 
 
-COGNITO_USER_CLIENT_ID = ""
+COGNITO_USER_CLIENT_ID = "4hjoscn7i4o07nb6lv0ijfck0f"
 
 # Login Block
 def login(usr, pwd):
@@ -34,7 +33,7 @@ def login(usr, pwd):
             "name": nam
         }       
         upd={
-            "token_val": {'Value' : accTo}
+            "tok": {'Value' : accTo}
         }
 
         table.update_item(Key=key, AttributeUpdates=upd)
@@ -52,7 +51,7 @@ def signUp(usr,pwd,name,mob):
             ClientId=COGNITO_USER_CLIENT_ID,
             Username=usr,
             Password=pwd,
-            UserAttributes=[{"Name": "name", "Value": name},{"Name":"custom:mob_number","Value":mob}],
+            UserAttributes=[{"Name": "name", "Value": name},{"Name":"custom:con_number","Value":mob}],
         )
 
         return {"success": "true"}
@@ -60,11 +59,3 @@ def signUp(usr,pwd,name,mob):
         print(e.response['Error']['Message'])
         return {"success": "false"}
 
-
-def msgpub(msg):
-    try:
-        snsmsg.publish(Message=msg, TopicArn=topic_arn)
-        return {"success": "true"}
-    except ClientError as e:
-        print(e.response['Error']['Message'])
-        return {"success": "false"}
